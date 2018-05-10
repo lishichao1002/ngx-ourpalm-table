@@ -10,12 +10,18 @@ import {Component} from "@angular/core";
             <ourpalm-table-column
                     [column]="{header: '序号', field: 'number', rownumbers: true, styler: styler}"></ourpalm-table-column>
             <ourpalm-table-column [column]="{header: '姓名', field: 'name', sort: true}">
-                <ng-template let-data="$row">
+                <ng-template #header>
+                    <span style="color:red;">姓名</span>
+                </ng-template>
+                <ng-template #row let-data="$row">
                     <span style="color:red;">{{data.name}}</span>
                 </ng-template>
             </ourpalm-table-column>
-            <ourpalm-table-column [column]="{header: '年龄', field: 'age', sort: true}">
-                <ng-template let-row="$row" let-rowIndex="$rowIndex" let-cellIndex="$cellIndex">
+            <ourpalm-table-column [column]="{header: '年龄', field: 'age', sort: true, headerTpl: ageHeader}">
+                <ng-template #ageHeader>
+                    <span style="color:blue;">年龄</span>
+                </ng-template>
+                <ng-template #row let-row="$row" let-rowIndex="$rowIndex" let-cellIndex="$cellIndex">
                     {{row.age}} - {{rowIndex}} - {{cellIndex}}
                 </ng-template>
             </ourpalm-table-column>

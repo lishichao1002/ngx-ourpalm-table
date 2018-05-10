@@ -8,10 +8,10 @@ import {OurpalmTableColumn} from "../../model/ourpalm-table-column";
     template: `
         <!-- 排序列 -->
         <span *ngIf="column.sort" (click)="onSortColumn.next(column)" [class.sortable]="column.sort">
-                <ng-container *ngIf="!isTemplate">
+                <ng-container *ngIf="!showTemplate">
                     {{column.header}}
                 </ng-container>
-                <ng-container *ngIf="isTemplate">
+                <ng-container *ngIf="showTemplate">
                     <ng-template [ngTemplateOutlet]="column.headerTpl"></ng-template>
                 </ng-container>
                 <i class="fa"
@@ -19,10 +19,10 @@ import {OurpalmTableColumn} from "../../model/ourpalm-table-column";
         </span>
         <!-- 正常列 | 序号列-->
         <ng-container *ngIf="!column.sort && !column.checkbox">
-            <ng-container *ngIf="!isTemplate">
+            <ng-container *ngIf="!showTemplate">
                 {{column.header}}
             </ng-container>
-            <ng-container *ngIf="isTemplate">
+            <ng-container *ngIf="showTemplate">
                 <ng-template [ngTemplateOutlet]="column.headerTpl"></ng-template>
             </ng-container>
         </ng-container>
@@ -33,8 +33,8 @@ export class OurpalmTableHeaderCellComponent {
     @Input() column: OurpalmTableColumn;
     @Output() onSortColumn: EventEmitter<OurpalmTableColumn> = new EventEmitter();
 
-    get isTemplate(): boolean {
-        return this.column ? (typeof this.column.header === 'string') : false;
+    get showTemplate(): boolean {
+        return (this.column && this.column.headerTpl) ? true : false;
     }
 
 }
